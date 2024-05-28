@@ -3,24 +3,29 @@ import { Link } from "react-router-dom";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
-import { menu, close, logo, ig } from "../assets";
+import { menu, close, logo, ig, noText, } from "../assets";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const Logo = { logo };
+  const NoText = { noText };
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       if (scrollTop > 100) {
         setScrolled(true);
+        document.getElementById("main-logo-img").src = Logo;
       } else {
         setScrolled(false);
+        document.getElementById("main-logo-img").src = NoText;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -39,9 +44,10 @@ const Navbar = () => {
           }}
         >
           <img
-            src={logo}
+            src={handleScroll()}
             alt="Joie Cafe Logo"
-            className="h-[60px]"
+            className={`main-logo h-[70px]`}
+            id="main-logo-img"
           />
         </Link>
 
